@@ -40,14 +40,17 @@ composer install --no-interaction --optimize-autoloader
 echo "> Install Shopware Application";
 bin/console system:install --basic-setup --force
 
+echo "> allow-plugins";
+composer config --no-plugins allow-plugins.php-http/discovery true
+composer require shopware/dev-tools
+APP_ENV=prod bin/console framework:demodata
+bin/console dal:refresh:index
+
 echo "> Add Devpanel Admin User";
 bin/console user:create devpanel --password=devpanel --email=developer@devpanel.com --firstName=DevPanel
 
 echo "> Set completedAt for bypass admin config";
 bin/console system:config:set core.frw.completedAt "$(date -Iseconds)"
-
-echo "> allow-plugins";
-composer config --no-plugins allow-plugins.php-http/discovery true
 
 # mysql -h$DB_HOST -P$DB_PORT -u$DB_USER -p$DB_PASSWORD $DB_NAME -e "UPDATE sales_channel_domain SET url='https://$DP_HOSTNAME' WHERE url='http://localhost' OR url='https://localhost';"
 mysql -h"$DB_HOST" -P"$DB_PORT" -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" -e "
