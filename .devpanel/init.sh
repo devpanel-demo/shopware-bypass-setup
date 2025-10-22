@@ -42,7 +42,7 @@ bin/console system:install --basic-setup --force
 
 echo "> allow-plugins";
 composer config --no-plugins allow-plugins.php-http/discovery true
-composer require shopware/dev-tools
+composer require --dev shopware/dev-tools
 APP_ENV=prod bin/console framework:demodata
 bin/console dal:refresh:index
 
