@@ -32,7 +32,8 @@ jobs:
           INSTANCE_ID: dec7e81235cc97897b661da7e0c83c58
           BLUE_GREEN_DEPLOYMENT: 0
           COMPOSER_HOME: /var/www/html/var/cache/composer
-          APP_ENV: dev
+          APP_ENV: prod
+          APP_DEBUG: 0
         ports:
           - 80:80
         volumes:
