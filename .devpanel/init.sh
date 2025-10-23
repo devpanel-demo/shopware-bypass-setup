@@ -42,9 +42,13 @@ bin/console system:install --basic-setup --force
 
 echo "> allow-plugins";
 composer config --no-plugins allow-plugins.php-http/discovery true
-composer require --dev shopware/dev-tools
-APP_ENV=prod bin/console framework:demodata
-bin/console dal:refresh:index
+# composer require --dev shopware/dev-tools
+# APP_ENV=prod bin/console framework:demodata
+# bin/console dal:refresh:index
+
+git clone https://github.com/shopware/SwagPlatformDemoData.git custom/plugins/SwagPlatformDemoData
+bin/console plugin:refresh
+bin/console plugin:install --activate SwagPlatformDemoData
 
 echo "> Add Devpanel Admin User";
 bin/console user:create devpanel --password=devpanel --email=developer@devpanel.com --firstName=DevPanel
